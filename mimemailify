@@ -15,7 +15,7 @@ sub printhelp() {
 
 =head1 NAME
 
-mimemailify - Convert plain text from into a multipart/alternative message
+mimemailify - Convert plain text into a multipart/alternative message
 
 =head1 SYNOPSIS
 
