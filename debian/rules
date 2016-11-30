@@ -3,3 +3,8 @@
 %:
 	dh $@
 
+
+override_dh_auto_build:
+	pod2man mimemailify mimemailify.1
+	dh_auto_build
+

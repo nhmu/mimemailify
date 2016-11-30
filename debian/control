@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 9)
 
 Package: mimemailify
 Architecture: all
-Depends: libmime-tools-perl, libhtml-parser-perl, ${perl:Depends}
+Depends: perl, libmime-tools-perl, libhtml-parser-perl, ${perl:Depends}, ${misc:Depends}
 Description: Convert plain text into a multipart/alternative message
  Simple tool to convert plain text into a multipart/alternative e-mail
  message with text/plain and text/html parts. This allows you to work
