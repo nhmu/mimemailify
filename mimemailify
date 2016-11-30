@@ -40,6 +40,11 @@ piping into B<mail>(1).
 
 =back
 
+=head1 NOTES
+
+This program exists because of Microsoft Outlook behavior documented in MS KB
+287816.
+
 =head1 SEE ALSO
 
 B<mail>(1), B<MIME::Tools>(3pm)
