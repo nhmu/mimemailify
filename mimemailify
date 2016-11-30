@@ -2,29 +2,49 @@
 use strict;
 use MIME::Entity;
 use HTML::Entities;
+use Pod::Usage;
 use Getopt::Long qw( :config no_ignore_case );
 
 
 sub printhelp() {
-  print << 'EOF';
-Converts plain text from stdin into a multipart/alternative message.
+  pod2usage({-verbose => 99
+            ,-sections => 'NAME|SYNOPSIS|DESCRIPTION'});
+}
 
-EOF
-  print "Usage: $0 [arguments] [recipients]\n";
-  print << 'EOF';
+=pod
 
-  Arguments: 
+=head1 NAME
 
-    -s <subject>
-       Specify a subject
+mimemailify - Convert plain text from into a multipart/alternative message
 
-    -m
-       Send mail, instead of outputting MIME message on stdout. Replaces
-       piping into mail(1).
+=head1 SYNOPSIS
 
-EOF
-  exit 1;
-};
+mimemailify [arguments] [F<recipient> [F<...>]]
+
+=head1 DESCRIPTION
+
+Takes plain text from stdin and outputs a multipart/alternative MIME message
+with text/plain and text/html parts. B<mimemailify> can output to stdout
+or directly into your mail system.
+
+=over
+
+=item B<-s> <F<subject>>
+
+Specify a subject
+
+=item B<-m>
+
+Send mail directly, instead of outputting MIME message on stdout. Replaces
+piping into B<mail>(1).
+
+=back
+
+=head1 SEE ALSO
+
+B<mail>(1), B<MIME::Tools>(3pm)
+
+=cut
 
 my $subject;
 my $send_mail;
