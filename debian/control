@@ -1,0 +1,16 @@
+Source: mimemailify
+Maintainer: Will Aoki <waoki@umnh.utah.edu>
+Section: misc
+Priority: extra
+Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 9)
+
+Package: mimemailify
+Architecture: all
+Depends: libmime-tools-perl, libhtml-parser-perl, ${perl:Depends}
+Description: Convert plain text into a multipart/alternative message
+ Simple tool to convert plain text into a multipart/alternative e-mail
+ message with text/plain and text/html parts. This allows you to work
+ around Outlook's newline-folding when producing e-mails from simple
+ scripts.
+
