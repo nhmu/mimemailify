@@ -1,0 +1,71 @@
+#!/usr/bin/perl -w
+use strict;
+use MIME::Entity;
+use HTML::Entities;
+use Getopt::Long qw( :config no_ignore_case );
+
+
+sub printhelp() {
+  print << 'EOF';
+Converts plain text from stdin into a multipart/alternative message.
+
+EOF
+  print "Usage: $0 [arguments] [recipients]\n";
+  print << 'EOF';
+
+  Arguments: 
+
+    -s <subject>
+       Specify a subject
+
+    -m
+       Send mail, instead of outputting MIME message on stdout. Replaces
+       piping into mail(1).
+
+EOF
+  exit 1;
+};
+
+my $subject;
+my $send_mail;
+my $printhelp;
+GetOptions ('s=s'    => \$subject
+           ,'m'      => \$send_mail
+           ,'help|h' => \$printhelp
+) or printhelp();
+
+if ($printhelp) {
+  printhelp();
+}
+
+my @recipient = join(', ', @ARGV);
+
+
+my $text;
+while (my $l = <STDIN>) {
+   $text .= $l;
+}
+
+my $html = '<html><body><pre>' . encode_entities($text) . '</pre></body></html>';
+#$html =~ s/$/<br>/gm;
+
+
+my $msg = MIME::Entity->build(Type       => 'multipart/alternative'
+                             ,Subject    => $subject
+                             ,To         => \@recipient
+                             );
+
+$msg->attach(Type => 'text/plain'
+            ,Encoding => 'quoted-printable'
+            ,Data => $text);
+$msg->attach(Type => 'text/html'
+            ,Encoding => 'quoted-printable'
+            ,Data => $html);
+
+if ($send_mail) {
+  $msg->send();
+} else {
+  $msg->print();
+} 
+
+
