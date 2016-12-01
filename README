@@ -1,0 +1,31 @@
+A trivial tool to convert plain text into a multipart/alternative message
+
+
+This program exists because of the Outlook behavior documented in MS KB 287816
+which was making the output of an audit script script look ugly and confusing
+for Outlook users. It converts plain text from stdin into a
+multipart/alternative e-mail message with text/plain and text/html parts.
+
+The tool is provided with Debian packaging because that's what's easiest to
+distribute with our management infrastructure. To build packages for testing,
+install git-buildpackage, ensure your pbuilder is working, then:
+
+    BUILDER=pbuilder git-buildpackage  --git-ignore-branch --git-dist=wheezy
+
+For release:
+
+    BUILDER=pbuilder git-buildpackage  --git-dist=wheezy
+
+
+Example usage:
+
+  Replace e.g.:
+
+    my-reportmaker --fnord | mail -s 'My Report' people@example.com
+
+  with:
+
+    my-reportmaker --fnord | mimemailify -s 'My Report' people@example.com
+
+
+
