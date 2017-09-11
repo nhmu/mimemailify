@@ -38,8 +38,6 @@ Specify a subject
 Send mail directly, instead of outputting MIME message on stdout. Replaces
 piping into B<mail>(1).
 
-=back
-
 =item B<-E>
 
 Don't send messages with an empty body.
