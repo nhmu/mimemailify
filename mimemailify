@@ -40,6 +40,12 @@ piping into B<mail>(1).
 
 =back
 
+=item B<-E>
+
+Don't send messages with an empty body.
+
+=back
+
 =head1 NOTES
 
 This program exists because of Microsoft Outlook behavior documented in MS KB
@@ -54,8 +60,10 @@ B<mail>(1), B<MIME::Tools>(3pm)
 my $subject;
 my $send_mail;
 my $printhelp;
+my $noempty;
 GetOptions ('s=s'    => \$subject
            ,'m'      => \$send_mail
+           ,'E'      => \$noempty
            ,'help|h' => \$printhelp
 ) or printhelp();
 
@@ -66,9 +74,13 @@ if ($printhelp) {
 my @recipient = join(', ', @ARGV);
 
 
-my $text;
+my $text = '';
 while (my $l = <STDIN>) {
    $text .= $l;
+}
+
+if ($noempty && ($text eq '')) {
+  exit 0;
 }
 
 my $html = '<html><body><pre>' . encode_entities($text) . '</pre></body></html>';
